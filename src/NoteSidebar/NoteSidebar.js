@@ -1,9 +1,25 @@
 import React from 'react';
+import NotefulContext from '../NotefulContext';
 import BackButton from '../BackButton/BackButton';
+import { findNote, findFolder } from '../notes-helpers';
 import './NoteSidebar.css';
 
 class NoteSidebar extends React.Component {
+    static defaultProps = {
+        history: {
+            goBack: () => {}
+        },
+        match: {
+            params: {}
+        }
+    }
+    static contextType = NotefulContext;
+
     render() {
+        const { notes, folders } = this.context;
+        const {noteId} = this.props.match.params;
+        const note = findNote(notes, noteId) || {};
+        const folder = findFolder(folders, note.folderId);
         return (
             <div className='NoteSidebar'>
                 <BackButton
@@ -14,20 +30,14 @@ class NoteSidebar extends React.Component {
                 >
                     Go back
                 </BackButton>
-                {this.props.folder && (
+                {folder && (
                     <h3 className='NoteSidebar__folder-name'>
-                        {this.props.folder.name}
+                        {folder.name}
                     </h3>
                 )}
             </div>
         )
     }
 }
-
-/*NotePageNav.defaultProps = {
-    history: {
-        goBack: () => {}
-    }
-}*/
 
 export default NoteSidebar;
