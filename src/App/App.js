@@ -5,6 +5,9 @@ import MainSidebar from '../MainSidebar/MainSidebar';
 import NoteSidebar from '../NoteSidebar/NoteSidebar';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
+import AddFolder from '../AddFolder/AddFolder';
+import AddNote from '../AddNote/AddNote';
+import NotefulError from '../NotefulError';
 //import dummyStore from '../dummy-store.js';
 //import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import config from '../config';
@@ -15,6 +18,18 @@ class App extends React.Component {
     notes: [],
     folders: []
   };
+
+  addFolder = (folder) => {
+    this.setState({
+      folders: [...this.state.folders, folder]
+    })
+  }
+
+  addNote = (note) => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
+  }
 
   deleteNote = noteId => {
     const newNotes = this.state.notes.filter(note => 
@@ -47,42 +62,29 @@ class App extends React.Component {
   }
 
   renderNavRoutes() {
-    //const {notes, folders} = this.state;
     return (
       <>
         <Route 
           exact
           path='/' 
-          /*render={routeProps => (
-              <MainSidebar
-                folders={folders}
-                notes={notes}
-                {...routeProps} 
-              />
-          )}*/
           component={MainSidebar}
         />
 
         <Route 
           path='/folder/:folderId'
-          /*render={routeProps => (
-            <MainSidebar
-              folders={folders}
-              notes={notes}
-              {...routeProps}
-            />
-          )}*/
           component={MainSidebar}
         />
 
         <Route
           path='/note/:noteId'
-          /*render={routeProps => {
-            const {noteId} = routeProps.match.params;
-            const note = findNote(notes, noteId) || {};
-            const folder = findFolder(folders, note.folderId);
-            return <NoteSidebar {...routeProps} folder={folder} />
-          }}*/
+          component={NoteSidebar}
+        />
+        <Route 
+          path='/add-folder' 
+          component={NoteSidebar}
+        />
+        <Route 
+          path='/add-note' 
           component={NoteSidebar}
         />
       </>
@@ -90,56 +92,32 @@ class App extends React.Component {
   }
 
   renderMainRoutes() {
-    //const {notes, folders} = this.state;
     return (
       <>
         <Route 
           exact
           path='/'
-          /*render={routeProps => {
-            const {folderId} = routeProps.match.params;
-            const notesForFolder = getNotesForFolder(
-              notes,
-              folderId
-            );
-            return (
-              <NoteListMain 
-                {...routeProps}
-                notes={notesForFolder}
-              />
-            );
-          }}*/
           component={NoteListMain}
         />
 
         <Route 
           exact
           path='/folder/:folderId'
-          /*render={routeProps => {
-            const {folderId} = routeProps.match.params;
-            const notesForFolder = getNotesForFolder(
-              notes,
-              folderId
-            );
-            return (
-              <NoteListMain 
-                {...routeProps}
-                notes={notesForFolder}
-              />
-            );
-          }}*/
           component={NoteListMain}
         />
 
         <Route
           path='/note/:noteId'
-          /*render={routeProps => {
-            const {noteId} = routeProps.match.params;
-            const note = findNote(notes, noteId);
-            return <NotePageMain {...routeProps} note={note} />
-          }}*/
           component={NotePageMain}
-        />       
+        />    
+        <Route 
+          path='/add-folder' 
+          component={AddFolder} 
+        />   
+        <Route 
+          path='/add-note' 
+          component={AddNote} 
+        />
       </>
     )
   }
@@ -148,13 +126,17 @@ class App extends React.Component {
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
+      addFolder: this.addFolder,
+      addNote: this.addNote,
       deleteNote: this.deleteNote,
     };
     return (
       <NotefulContext.Provider value={contextValue}>
         <div className='App'>
           <nav className="App__nav">
-            {this.renderNavRoutes()}
+            <NotefulError>
+              {this.renderNavRoutes()}
+            </NotefulError>
           </nav>
           <header className='App__header'>
             <h1>
@@ -162,7 +144,9 @@ class App extends React.Component {
             </h1>
           </header>
           <main className='App__main'>
-            {this.renderMainRoutes()}
+            <NotefulError>
+              {this.renderMainRoutes()}
+            </NotefulError>
           </main>
         </div>
       </NotefulContext.Provider>

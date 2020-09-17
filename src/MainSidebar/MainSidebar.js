@@ -1,8 +1,9 @@
 import React from 'react';
-import { NavLink/*, Link*/ } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import NotefulContext from '../NotefulContext';
 import './MainSidebar.css';
 import { countNotesForFolder } from '../notes-helpers';
+import Button from '../BackButton/BackButton';
 
 class MainSidebar extends React.Component {
     static contextType = NotefulContext;
@@ -17,7 +18,7 @@ class MainSidebar extends React.Component {
                                 className='MainSidebar__folder-link'
                                 to={`/folder/${folder.id}`}
                             >
-                                <span className='MainSideBar__notes-filter'>
+                                <span className='MainSidebar__notes-filter'>
                                     {countNotesForFolder(this.context.notes, folder.id)}
                                 </span>
                                 {folder.name}
@@ -25,6 +26,16 @@ class MainSidebar extends React.Component {
                         </li>
                     )}
                 </ul>
+                <div className='MainSideBar__button-wrapper'>
+                    <Button
+                        tag={Link}
+                        to='/add-folder'
+                        type='button'
+                        className='MainSidebar__add-folder-button'
+                    >
+                        Add folder
+                    </Button>
+                </div>
             </div>
         )
     }

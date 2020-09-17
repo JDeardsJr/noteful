@@ -1,8 +1,9 @@
 import React from 'react';
-/*import { Link } from 'react-router-dom'*/
+import { Link } from 'react-router-dom';
 import NotefulContext from '../NotefulContext';
-import Note from '../Note/Note'
+import Note from '../Note/Note';
 import { getNotesForFolder } from '../notes-helpers';
+import Button from '../BackButton/BackButton';
 import './NoteListMain.css';
 
 class NoteListMain extends React.Component {
@@ -34,7 +35,15 @@ class NoteListMain extends React.Component {
                     )}
                 </ul>
                 <div className='NoteListMain__button-container'>
-                    <p>insert button here</p>
+                    <Button
+                        tag={Link}
+                        to='/add-note'
+                        type='button'
+                        className='NoteListMain__add-note-button'
+                    >
+                        Add note
+                    </Button>
+
                 </div>
             </section>
         )

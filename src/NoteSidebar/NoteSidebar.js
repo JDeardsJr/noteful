@@ -1,7 +1,8 @@
 import React from 'react';
 import NotefulContext from '../NotefulContext';
-import BackButton from '../BackButton/BackButton';
+import Button from '../BackButton/BackButton';
 import { findNote, findFolder } from '../notes-helpers';
+import PropTypes from 'prop-types';
 import './NoteSidebar.css';
 
 class NoteSidebar extends React.Component {
@@ -22,14 +23,14 @@ class NoteSidebar extends React.Component {
         const folder = findFolder(folders, note.folderId);
         return (
             <div className='NoteSidebar'>
-                <BackButton
+                <Button
                     tag='button'
                     role='link'
                     onClick={() => this.props.history.goBack()}
                     className='NoteSidebar__back-button'
                 >
                     Go back
-                </BackButton>
+                </Button>
                 {folder && (
                     <h3 className='NoteSidebar__folder-name'>
                         {folder.name}
@@ -39,5 +40,10 @@ class NoteSidebar extends React.Component {
         )
     }
 }
+
+NoteSidebar.propTypes = {
+    history: PropTypes.object,
+    match: PropTypes.object
+};
 
 export default NoteSidebar;

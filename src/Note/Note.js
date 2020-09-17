@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import NotefulContext from '../NotefulContext';
 import config from '../config';
+import PropTypes from 'prop-types';
 import './Note.css';
 
 class Note extends React.Component {
@@ -31,8 +32,9 @@ class Note extends React.Component {
             return res.json()
         })
         .then(() => {
-            this.context.deleteNote(noteId)
             this.props.onDeleteNote(noteId)
+            this.context.deleteNote(noteId)
+            
         })
         .catch(error => {
             console.error(error)
@@ -59,8 +61,7 @@ class Note extends React.Component {
                         Date modified on 
                         {' '}
                         <span className='Date'>
-                            {format(new Date(this.props.modified), 'Do MMM yyyy')}
-                          
+                            {format(new Date(this.props.modified), 'do MMM yyyy')}
                         </span>
                     </div>
                 </div>
@@ -69,5 +70,11 @@ class Note extends React.Component {
         )
     }
 }
+
+Note.propTypes = {
+    id: PropTypes.string,
+    name: PropTypes.string,
+    modified: PropTypes.string
+};
 
 export default Note;

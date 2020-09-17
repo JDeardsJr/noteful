@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import './BackButton.css';
 
-class BackButton extends React.Component {
+class Button extends React.Component {
     render() {
         const { tag, className, children, ...otherProps } = this.props
 
         return React.createElement(
             tag,
             {
-                className: className, 
+                className: ['Button', className].join(' '), 
                 ...otherProps
             },
             children
@@ -15,8 +17,12 @@ class BackButton extends React.Component {
     }
 }
 
-/*NavCircleButton.defaultProps ={
-    tag: 'a',
-}*/
+Button.propTypes = {
+    className: PropTypes.string
+};
 
-export default BackButton;
+Button.defaultProps ={
+    tag: 'a',
+}
+
+export default Button;
