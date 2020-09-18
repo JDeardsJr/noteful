@@ -1,6 +1,6 @@
 import React from 'react';
 import NotefulContext from '../NotefulContext';
-import Button from '../BackButton/BackButton';
+import Button from '../Button/Button';
 import { findNote, findFolder } from '../notes-helpers';
 import PropTypes from 'prop-types';
 import './NoteSidebar.css';

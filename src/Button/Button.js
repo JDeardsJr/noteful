@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './BackButton.css';
+import './Button.css';
 
 class Button extends React.Component {
     render() {

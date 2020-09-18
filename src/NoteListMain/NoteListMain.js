@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import NotefulContext from '../NotefulContext';
 import Note from '../Note/Note';
 import { getNotesForFolder } from '../notes-helpers';
-import Button from '../BackButton/BackButton';
+import Button from '../Button/Button';
+import PropTypes from 'prop-types';
 import './NoteListMain.css';
 
 class NoteListMain extends React.Component {
@@ -50,8 +51,8 @@ class NoteListMain extends React.Component {
     }
 }
 
-/*NoteListMain.defaultProps = {
-    notes: [],
-}*/
+NoteListMain.propTypes = {
+    match: PropTypes.object
+}
 
 export default NoteListMain;

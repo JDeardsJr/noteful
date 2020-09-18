@@ -8,8 +8,6 @@ import NotePageMain from '../NotePageMain/NotePageMain';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import NotefulError from '../NotefulError';
-//import dummyStore from '../dummy-store.js';
-//import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import config from '../config';
 import './App.css';
 
@@ -64,29 +62,22 @@ class App extends React.Component {
   renderNavRoutes() {
     return (
       <>
-        <Route 
-          exact
-          path='/' 
-          component={MainSidebar}
-        />
+        {['/', '/folder/:folderId'].map(path => 
+          <Route 
+            exact
+            key={path}
+            path={path} 
+            component={MainSidebar}
+          />
+        )}
 
-        <Route 
-          path='/folder/:folderId'
-          component={MainSidebar}
-        />
-
-        <Route
-          path='/note/:noteId'
-          component={NoteSidebar}
-        />
-        <Route 
-          path='/add-folder' 
-          component={NoteSidebar}
-        />
-        <Route 
-          path='/add-note' 
-          component={NoteSidebar}
-        />
+        {['/note/:noteId', '/add-folder', '/add-note'].map(path =>
+          <Route
+            key={path}
+            path={path}
+            component={NoteSidebar}
+          />
+        )}
       </>
     );
   }
@@ -94,17 +85,14 @@ class App extends React.Component {
   renderMainRoutes() {
     return (
       <>
-        <Route 
-          exact
-          path='/'
-          component={NoteListMain}
-        />
-
-        <Route 
-          exact
-          path='/folder/:folderId'
-          component={NoteListMain}
-        />
+        {['/', '/folder/:folderId'].map(path =>
+          <Route 
+            exact
+            key={path}
+            path={path}
+            component={NoteListMain}
+          />
+        )}
 
         <Route
           path='/note/:noteId'
@@ -155,3 +143,52 @@ class App extends React.Component {
 }
 
 export default App;
+
+        /*<Route 
+          exact
+          path='/' 
+          component={MainSidebar}
+        />
+
+        <Route 
+          path='/folder/:folderId'
+          component={MainSidebar}
+        />
+        
+        <Route
+          path='/note/:noteId'
+          component={NoteSidebar}
+        />
+        <Route 
+          path='/add-folder' 
+          component={NoteSidebar}
+        />
+        <Route 
+          path='/add-note' 
+          component={NoteSidebar}
+        />
+        
+        <Route 
+          exact
+          path='/'
+          component={NoteListMain}
+        />
+
+        <Route 
+          exact
+          path='/folder/:folderId'
+          component={NoteListMain}
+        />
+
+        <Route
+          path='/note/:noteId'
+          component={NotePageMain}
+        />    
+        <Route 
+          path='/add-folder' 
+          component={AddFolder} 
+        />   
+        <Route 
+          path='/add-note' 
+          component={AddNote} 
+        />*/

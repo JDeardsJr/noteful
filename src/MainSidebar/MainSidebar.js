@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom';
 import NotefulContext from '../NotefulContext';
 import './MainSidebar.css';
 import { countNotesForFolder } from '../notes-helpers';
-import Button from '../BackButton/BackButton';
+import Button from '../Button/Button';
 
 class MainSidebar extends React.Component {
     static contextType = NotefulContext;

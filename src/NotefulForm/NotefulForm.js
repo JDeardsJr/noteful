@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './NotefulForm.css';
 
 function NotefulForm(props) {
@@ -11,5 +12,9 @@ function NotefulForm(props) {
         />
     )
 }
+
+NotefulForm.propTypes = {
+    className: PropTypes.string
+};
 
 export default NotefulForm;
